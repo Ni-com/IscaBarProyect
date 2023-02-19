@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+  
+  
+      <record model="ir.ui.view" id="bar.invoicelines_model_form">
+        <field name="name">invoicelines Form</field>
+        <field name="model">bar.invoicelines_model</field>
+        <field name="arch" type="xml">
+          <form string="invoiceLines">
+            <header></header>
+            <sheet>
+              <group string="invoicelines" name="top">
+                <group name="left">
+                  <field name="quantity" />
+                  <field name="invoice" invisible="True"/>
+                  <field name="product" />
+                  
+                </group>
+              </group>
+            </sheet>
+          </form>
+        </field>
+      </record>
+  
+  
+      <record model="ir.ui.view" id="bar.invoicelines_model_list">
+        <field name="name">invoicelines List</field>
+        <field name="model">bar.invoicelines_model</field>
+        <field name="arch" type="xml">
+          <tree>
+            <field name="quantity" />
+            <field name="invoice" invisible="True"/>
+            <field name="product" />
+          </tree>
+        </field>
+      </record>
+  
+  
+      <record model="ir.actions.act_window" id="bar.action_window_invoicelines">
+        <field name="name"> Task Window</field>
+        <field name="res_model">bar.invoicelines_model</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+  
+  
+    </data>
+  </odoo>

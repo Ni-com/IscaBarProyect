@@ -1,0 +1,94 @@
+<odoo>
+  <data>
+
+
+    <record model="ir.ui.view" id="bar.order_model_form">
+      <field name="name">orders Form</field>
+      <field name="model">bar.order_model</field>
+      <field name="arch" type="xml">
+        <form string="orders">
+          <header>
+            <button name="create_invoice" type="object" string="Create Invoice" confirm="The state will change and you will not modify the order"/>
+            <field name="state" widget="statusbar"></field>
+          </header>
+          <sheet>
+            <group string="Product" name="top">
+              <group string="Product data" name="left">
+                <field name="name" attrs="{'readonly': [('state','=', 'C')]}"/>
+                <field name="client" attrs="{'readonly': [('state','=', 'C')]}"/>
+                <field name="pax" attrs="{'readonly': [('state','=', 'C')]}"/>
+                <field name="waiter" attrs="{'readonly': [('state','=', 'C')]}"/>
+                <field name="aditionalData" />
+              </group>
+              <group string="Aditional data" name="right" >
+                <field name="register" attrs="{'readonly': [('state','=', 'C')]}">
+                  <tree decoration-danger="state == 'C'" decoration-success="state == 'P'">
+                    <button name="waiterStatusTree" type="object" string="Deliver" confirm="The state will change to delivered"/>
+                    <field name="quantity" />
+                    <field name="order" invisible="True"/>
+                    <field name="product" />
+                    <field name="state" />
+                    <field name="location" />
+                  </tree>
+                </field>
+                
+                <field name="currency_id" invisible="True"/>
+                <field name="pay" widget="monetary" options="{'currency_field':'currency_id'}" attrs="{'readonly': [('state','=', 'C')]}"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!--<button name="create_invoice" type="object" string="Create Invoice"/>-->
+    <record model="ir.ui.view" id="bar.order_model_list">
+      <field name="name">order List</field>
+      <field name="model">bar.order_model</field>
+      <field name="arch" type="xml">
+        <tree decoration-info="deliverStatus == 'A'" decoration-danger="deliverStatus == 'P'">
+          <field name="name" />
+          <field name="client" />
+          <field name="pax" />
+          <field name="waiter" />
+          <field name="register" />
+          <field name="currency_id" invisible="True"/>
+          <field name="pay" widget="monetary" options="{'currency_field':'currency_id'}" />
+          <field name="state" />
+          <field name="deliverStatus"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="bar.order_model_graph">
+      <field name="name">Order Graph</field>
+      <field name="model">bar.order_model</field>
+      <field name="arch" type="xml">
+          <graph type="bar">
+              <field name="name" type="row"/>
+              <field name="pay" type="row"/>
+              <field name="totalpay" type="measure"/>
+              
+          </graph>
+      </field>
+  </record>
+
+
+  <record model="ir.actions.act_window" id="bar.action_window_order_waiter">
+    <field name="name"> Waiter Window</field>
+    <field name="res_model">bar.order_model</field>
+    <field name="view_mode">tree,form,graph</field>
+    <field name="domain">[('state', '=', 'D')]</field>
+  </record>
+
+
+
+    <record model="ir.actions.act_window" id="bar.action_window_order">
+      <field name="name"> Task Window</field>
+      <field name="res_model">bar.order_model</field>
+      <field name="view_mode">tree,form,graph</field>
+    </record>
+
+
+  </data>
+</odoo>

@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <!-- Top menu item -->
+
+        <menuitem name="BAR" id="bar.menu_root" web_icon="bar,static/description/icon.png"/>
+
+        <!-- menu categories and task-->
+
+        <menuitem name="Product" id="bar.menu_product" parent="bar.menu_root" groups="bar.administrator,bar.waiter,bar.cooker,bar.barman"/>
+        <menuitem name="Category" id="bar.menu_category" parent="bar.menu_root" groups="bar.administrator,bar.waiter,bar.cooker,bar.barman"/>
+        <menuitem name="Ingredient" id="bar.menu_ingredient" parent="bar.menu_root" groups="bar.administrator,bar.waiter,bar.cooker,bar.barman"/>
+        <menuitem name="Register" id="bar.menu_register" parent="bar.menu_root" groups="bar.administrator,bar.acounting"/>
+        <menuitem name="Order" id="bar.menu_order" parent="bar.menu_root" groups="bar.administrator,bar.acounting,bar.cooker,bar.barman"/>
+        <menuitem name="Lines" id="bar.menu_invoicelines" parent="bar.menu_root" groups="bar.administrator,bar.waiter,bar.acounting,bar.barman"/>
+        <menuitem name="Invoice" id="bar.menu_invoice" parent="bar.menu_root" groups="bar.administrator,bar.waiter,bar.acounting,bar.barman"/>
+        
+        <menuitem name="Cooker Register" id="bar.menu_register_cooker" parent="bar.menu_root" groups="bar.administrator,bar.cooker"/>
+        <menuitem name="Barman Register" id="bar.menu_register_barman" parent="bar.menu_root" groups="bar.administrator,bar.barman"/>
+        <menuitem name="Waiter Register" id="bar.menu_register_waiter" parent="bar.menu_root" groups="bar.administrator,bar.waiter"/>
+        <menuitem name=" Waiter Order" id="bar.menu_order_waiter" parent="bar.menu_root" groups="bar.administrator,bar.waiter"/>
+
+        <!-- actions of menu  -->
+
+        <menuitem name="Product" id="bar.menu_product_list" parent="bar.menu_product"
+            action="bar.action_window_product" groups="bar.administrator,bar.waiter,bar.cooker,bar.barman"/>
+
+        <menuitem name="Category" id="bar.menu_category_list" parent="bar.menu_category"
+            action="bar.action_window_category" groups="bar.administrator,bar.waiter,bar.cooker,bar.barman"/>
+
+        <menuitem name="Ingredients" id="bar.menu_ingredient_list" parent="bar.menu_ingredient"
+            action="bar.action_window_ingredient" groups="bar.administrator,bar.waiter,bar.cooker"/>
+
+        <menuitem name="Register" id="bar.menu_register_list" parent="bar.menu_register"
+            action="bar.action_window_register" groups="bar.administrator,bar.waiter,bar.acounting"/>
+
+        <menuitem name="Order" id="bar.menu_order_list" parent="bar.menu_order"
+            action="bar.action_window_order" groups="bar.administrator,bar.acounting,bar.cooker,bar.barman"/>
+
+        <menuitem name="Lines" id="bar.menu_invoicelines_list" parent="bar.menu_invoicelines"
+            action="bar.action_window_invoicelines" groups="bar.administrator,bar.waiter,bar.acounting,bar.barman"/>
+            
+        <menuitem name="Invoice" id="bar.menu_invoice_list" parent="bar.menu_invoice"
+            action="bar.action_window_invoice" groups="bar.administrator,bar.waiter,bar.acounting"/>
+
+        <menuitem name="Register Cooker" id="bar.register_model_kanban_cooker" parent="bar.menu_register_cooker"
+            action="bar.action_window_register_cooker" groups="bar.administrator,bar.cooker"/>
+        
+        <menuitem name="Barman Register" id="bar.register_model_kanban_barman" parent="bar.menu_register_barman"
+            action="bar.action_window_register_barman" groups="bar.administrator,bar.barman"/>
+        
+        <menuitem name="Waiter Register" id="bar.register_model_kanban_waiter" parent="bar.menu_register_waiter"
+            action="bar.action_window_register_waiter" groups="bar.administrator,bar.waiter"/>
+
+        <menuitem name="Waiter Order" id="bar.menu_order_list_waiter" parent="bar.menu_order_waiter"
+            action="bar.action_window_order_waiter" groups="bar.administrator,bar.waiter"/>
+        
+
+    </data>
+</odoo>

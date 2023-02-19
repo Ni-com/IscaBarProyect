@@ -1,0 +1,67 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="bar.invoice_model_form">
+            <field name="name">invoices Form</field>
+            <field name="model">bar.invoice_model</field>
+            <field name="arch" type="xml">
+                <form string="invoices">
+                    <header>
+                        <button name="confirmInvoice" type="object" string="Confirm" class="oe_highlight" states="D" confirm="The state will change and you will not modify the invoice"/>
+                        <!-- <button name="print_invoice" string="Print Report" type="object" class="oe_highlight"/> -->
+                        <!--<button name="invoice_report" string="Print Invoice" type="action" class="oe_highlight"/>-->
+                        <field name="state" widget="statusbar"></field>
+                    </header>
+                    <sheet>
+                        <group string="Product" name="top">
+                            <group string="Product data" name="left">
+                                <field name="name" attrs="{'readonly': [('state','=', 'C')]}"/>
+                                <field name="date" attrs="{'readonly': [('state','=', 'C')]}"/>
+                                <field name="vat" attrs="{'readonly': [('state','=', 'C')]}"/>
+                                
+                            </group>
+                            <group string="Aditional data" name="right">
+                                <field name="client" attrs="{'readonly': [('state','=', 'C')]}"/>
+                                <field name="lines" attrs="{'readonly': [('state','=', 'C')]}">
+                                    <tree>
+                                        <field name="quantity" />
+                                        <field name="product" />
+                                    </tree>
+                                </field>
+                                <field name="currency_id" invisible="True" />
+                                <field name="pay" widget="monetary"
+                                    options="{'currency_field':'currency_id'}" />
+                                <field name="total" widget="monetary"
+                                    options="{'currency_field':'currency_id'}" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="bar.invoice_model_list">
+            <field name="name">invoice List</field>
+            <field name="model">bar.invoice_model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="vat" />
+                    <field name="client" />
+                    <field name="currency_id" invisible="True" />
+                    <field name="total" widget="monetary" options="{'currency_field':'currency_id'}" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="bar.action_window_invoice">
+            <field name="name"> Task Window</field>
+            <field name="res_model">bar.invoice_model</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+
+
+    </data>
+</odoo>

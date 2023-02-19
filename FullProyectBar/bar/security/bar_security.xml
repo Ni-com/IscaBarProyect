@@ -1,0 +1,40 @@
+<odoo>
+
+    <record id="module_bar_category" model="ir.module.category">
+        <field name="name">Bar</field>
+    </record>
+    <!-- Administrator User Group -->
+    <record id="bar.administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_bar_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Waiter User Group -->
+    <record id="bar.waiter" model="res.groups">
+        <field name="name">Waiter</field>
+        <field name="category_id" ref="module_bar_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Acounting User Group -->
+    <record id="bar.acounting" model="res.groups">
+        <field name="name">Acounting</field>
+        <field name="category_id" ref="module_bar_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+     <!-- Cooker User Group -->
+     <record id="bar.cooker" model="res.groups">
+        <field name="name">Cooker</field>
+        <field name="category_id" ref="module_bar_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+     <!-- Barman User Group -->
+     <record id="bar.barman" model="res.groups">
+        <field name="name">Barman</field>
+        <field name="category_id" ref="module_bar_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

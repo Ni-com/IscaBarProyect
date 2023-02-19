@@ -1,0 +1,98 @@
+<odoo>
+  <data>
+
+
+    <record model="ir.ui.view" id="bar.product_model_form">
+      <field name="name">products Form</field>
+      <field name="model">bar.product_model</field>
+      <field name="arch" type="xml">
+        <form string="Product">
+          <header>
+          </header>
+          <sheet>
+            <group string="Product" name="top">
+              <group string="Product data" name="left">
+                <field name="name" />
+                <field name="description" />
+                <field name="currency_id" invisible="True"/>
+                <field name="price" widget="monetary" options="{'currency_field':'currency_id'}" />
+                <field name="category" />
+                <field name="stock" />
+              </group>
+              <group string="Aditional data" name="right">
+                <field name="photo" />
+                <field name="ingredients">
+                  <tree>
+                    <field name="name" />
+                    <field name="allergies" />
+                  </tree>
+                </field>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="bar.product_model_list">
+      <field name="name">product List</field>
+      <field name="model">bar.product_model</field>
+      <field name="arch" type="xml">
+        <tree decoration-danger="stock == False">
+          <field name="name" />
+          <field name="stock" />
+          <field name="description" />
+          <field name="currency_id" invisible="True"/>
+          <field name="price" widget="monetary" options="{'currency_field':'currency_id'}" />
+          <field name="category" />
+          <field name="ingredients" />
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="bar.product_model_kanban">
+      <field name="name">Kanban BAR</field>
+      <field name="model">bar.product_model</field>
+      <field name="arch" type="xml">
+        <kanban class="o_res_partner_kanban">
+          <field name="name"/>
+          <field name="photo"/>
+          <field name="currency_id" invisible="True"/>
+          <field name="price" widget="monetary" options="{'currency_field':'currency_id'}" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_global_click">
+                <div class="o_kanban_image">
+                  <field name="photo" nolabel="1" widget="image" class="oe_right oe_avatar"/>
+                </div>
+                <div class="oe_kanban_details">
+                  <strong>
+                    <field name="name" class="oe_inline"/>
+                  </strong>
+                  <div t-if="record.price.value">
+                    <field name="currency_id" invisible="True"/>
+                    <field name="price" widget="monetary" options="{'currency_field':'currency_id'}" />
+                  </div>                 
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+
+    <!-- Acciones del menu // Binding/Enlazar con el modelo-->
+
+    <record model="ir.actions.act_window" id="bar.action_window_product">
+      <field name="name"> Task Window</field>
+      <field name="res_model">bar.product_model</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+  </data>
+</odoo>

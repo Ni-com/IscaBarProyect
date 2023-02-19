@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+
+
+    <record model="ir.ui.view" id="bar.ingredient_model_form">
+      <field name="name">ingredients Form</field>
+      <field name="model">bar.ingredient_model</field>
+      <field name="arch" type="xml">
+        <form string="Ingredients">
+          <header>
+          </header>
+          <sheet>
+            <group string="Ingredients" name="top">
+              <group name="left">
+                <field name="name" />
+                <field name="nutritionalValue" />
+                <field name="allergies" />
+                <field name="products" >
+                  <tree>
+                    <field name="name" />
+                  </tree>
+                </field>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="bar.ingredient_model_list">
+      <field name="name">ingredient List</field>
+      <field name="model">bar.ingredient_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="allergies" />
+          <field name="products" />
+          <field name="nutritionalValue" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="bar.ingredient_model_pivot">
+      <field name="name">Ingredient Pivot</field>
+      <field name="model">bar.ingredient_model</field>
+      <field name="arch" type="xml">
+        
+        <pivot string="Pivot ingredients">
+          <field name="name" type="row"/>
+          <field name="products" type="row"/>
+        </pivot>
+      </field>
+    </record>
+
+
+
+    <record model="ir.actions.act_window" id="bar.action_window_ingredient">
+      <field name="name"> Task Window</field>
+      <field name="res_model">bar.ingredient_model</field>
+      <field name="view_mode">tree,form,pivot</field>
+    </record>
+
+
+  </data>
+</odoo>

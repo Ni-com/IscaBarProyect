@@ -1,0 +1,169 @@
+<odoo>
+  <data>
+
+
+    <record model="ir.ui.view" id="bar.register_model_form">
+      <field name="name">registers Form</field>
+      <field name="model">bar.register_model</field>
+      <field name="arch" type="xml">
+        <form string="register">
+          <header>
+            <button name="waiterStatus" type="object" string="Mark as Delivered" confirm="The state will change to delivered" attrs="{'invisible': [('location','!=', 'W')]}"  action="ir.actions.act_window_close"/>
+            <field name="state" widget="statusbar"></field>
+          </header>
+          <sheet>
+            <group string="register" name="top">
+              <group name="left">
+                <field name="quantity" />
+                <field name="order" invisible="True"/>
+                <field name="product" />
+                <field name="location" />
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+<!--<button name="cookerStatus" type="object" string="Mark as Complete" confirm="The state will change to complete" attrs="{'invisible': [('location','!=', 'K')]}"  action="ir.actions.act_window_close"/> -->
+<!--<button name="barmanStatus" type="object" string="Mark as Complete" confirm="The state will change to complete" attrs="{'invisible': [('location','!=', 'B')]}"  action="ir.actions.act_window_close"/> -->
+<!--<button name="waiterStatus" type="object" string="Mark as Delivered" confirm="The state will change to delivered" attrs="{'invisible': [('location','!=', 'W')]}"  action="ir.actions.act_window_close"/> -->
+
+    <record model="ir.ui.view" id="bar.register_model_list">
+      <field name="name">register List</field>
+      <field name="model">bar.register_model</field>
+      <field name="arch" type="xml">
+        <tree decoration-danger="state == 'C'" decoration-success="state == 'P'">
+          <button name="waiterStatusTree" type="object" string="Deliver" confirm="The state will change to delivered"/>
+          <field name="quantity" />
+          <field name="order" invisible="True"/>
+          <field name="product" />
+          <field name="state" />
+          <field name="location" />
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="bar.register_model_kanban">
+  <field name="name">Register Kanban</field>
+  <field name="model">bar.register_model</field>
+  <field name="arch" type="xml">
+    <kanban class="o_res_partner_kanban" default_order="quantity desc">
+      <field name="quantity"/>
+      <field name="product" />
+      <field name="anotation" />
+      <field name="state" />
+      <field name="location" />
+      <templates>
+        <t t-name="kanban-box">
+          <div t-attf-class="oe_kanban_global_click">
+            <div class="oe_kanban_details">
+              <strong>
+                <field name="quantity" class="oe_inline"/>
+              </strong>
+              <div t-if="record.anotation">
+                <field name="product" />
+                <field name="anotation" />
+                <field name="state" />
+                <field name="location" />
+              </div>                 
+            </div>
+          </div>
+        </t>
+      </templates>
+    </kanban>
+  </field>
+</record>
+
+
+
+<record model="ir.ui.view" id="bar.register_model_form_cooker" >
+  <field name="name">Kanban Cooker Inherit</field>
+  <field name="model">bar.register_model</field>
+  <field name="inherit_id" ref="bar.register_model_form"/>
+  <field name="mode">primary</field> 
+  <field name="arch" type="xml">
+    <xpath expr="//form//sheet" position="before">
+      <header>
+        <button name="show_notification" type="object" string="Notification"/>
+        <button name="cookerStatus" type="object" string="Food Completed" confirm="The state will change to complete"/>
+      </header>
+    </xpath>     
+  </field>
+</record>
+
+
+<record model="ir.ui.view" id="bar.register_model_form_barman" >
+  <field name="name">Kanban Barman Inherit</field>
+  <field name="model">bar.register_model</field>
+  <field name="inherit_id" ref="bar.register_model_form"/>
+  <field name="mode">primary</field> 
+  <field name="arch" type="xml">
+    <xpath expr="//form//sheet" position="before">
+      <header>
+        <button name="barmanStatus" type="object" string="Drink Completed" confirm="The state will change to complete" attrs="{'invisible': [('location','!=', 'B')]}"/>
+      </header>
+    </xpath>     
+  </field>
+</record>
+
+
+<record model="ir.ui.view" id="bar.register_model_form_waiter" >
+  <field name="name">Tree Waiter Inherit</field>
+  <field name="model">bar.register_model</field>
+  <field name="inherit_id" ref="bar.register_model_form"/>
+  <field name="mode">primary</field> 
+  <field name="arch" type="xml">
+    <xpath expr="//form//sheet" position="before">
+      <header>
+        <!--
+        <button name="waiterStatus" type="object" string="Waiter Buton" confirm="The state will change to delivered"/>
+        -->
+      </header>
+    </xpath>     
+  </field>
+</record>
+
+    <record model="ir.actions.act_window" id="bar.action_window_register_cooker">
+      <field name="name"> Cooker Window</field>
+      <field name="res_model">bar.register_model</field>
+      <field name="view_mode">kanban</field>
+      <field name="domain">[('state', '=', 'P'), ('location_related', '=', 'K')]</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+              (0, 0, {'view_mode': 'kanban', 'view_id': ref('bar.register_model_kanban')}),
+              (0, 0, {'view_mode': 'form', 'view_id': ref('bar.register_model_form_cooker')})]"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="bar.action_window_register_barman">
+      <field name="name"> Barman Window</field>
+      <field name="res_model">bar.register_model</field>
+      <field name="view_mode">kanban</field>
+      <field name="domain">[('state', '=', 'P'), ('location_related', '=', 'B')]</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+              (0, 0, {'view_mode': 'kanban', 'view_id': ref('bar.register_model_kanban')}),
+              (0, 0, {'view_mode': 'form', 'view_id': ref('bar.register_model_form_barman')})]"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="bar.action_window_register_waiter">
+      <field name="name"> Waiter Window</field>
+      <field name="res_model">bar.register_model</field>
+      <field name="view_mode">tree</field>
+      <field name="domain">[('state', '!=', 'D'),('state', '!=', 'F')]</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+              (0, 0, {'view_mode': 'tree', 'view_id': ref('bar.register_model_list')}),
+              (0, 0, {'view_mode': 'form', 'view_id': ref('bar.register_model_form_waiter')})]"/>
+    </record>
+    
+    <record model="ir.actions.act_window" id="bar.action_window_register">
+      <field name="name"> Task Window</field>
+      <field name="res_model">bar.register_model</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+
+
+
+
+  </data>
+</odoo>

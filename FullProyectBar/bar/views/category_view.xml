@@ -1,0 +1,54 @@
+<odoo>
+  <data>
+
+
+    <record model="ir.ui.view" id="bar.category_model_form">
+      <field name="name">categorys Form</field>
+      <field name="model">bar.category_model</field>
+      <field name="arch" type="xml">
+        <form string="Category">
+          <header></header>
+          <sheet>
+            <group string="Category" name="top">
+              <group name="left">
+                <field name="name" />
+                <field name="parent_id" />
+                <field name="complete_name" />
+                <field name="description" />
+                <field name="products">
+                  <tree>
+                    <field name="name"></field>
+                  </tree>
+                </field>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="bar.category_model_list">
+      <field name="name">category List</field>
+      <field name="model">bar.category_model</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="parent_id" />
+          <field name="complete_name" />
+          <field name="description" />
+          <field name="products" />
+        </tree>
+      </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="bar.action_window_category">
+      <field name="name"> Task Window</field>
+      <field name="res_model">bar.category_model</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+  </data>
+</odoo>

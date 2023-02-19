@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="invoice_report" model="ir.actions.report">
+        <field name="name">Print Invoice</field>
+        <field name="model">bar.invoice_model</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bar.invoice_report</field>
+        <field name="report_file">bar.invoice_report</field>
+        <field name="binding_model_id" ref="model_bar_invoice_model"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="invoice_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+            <meta charset="UTF-8">
+            <style type="text/css">
+                .bb {
+                    font-weight: bold;
+                    font-size: 35px;
+                }
+                .brr{
+                    border: 5px solid black;
+                    font-size: 35px;
+                }
+                .tbt{
+                    border-top: 2px;
+                    border-color: black;
+                    border-width: thick;
+                    font-size: 35px;
+                }
+                .celda {
+                    border: 1px solid black;
+                    font-size: 35px;
+                }
+                .main-table {
+                    font-size: 35px;
+                    }
+            </style>
+            <t t-foreach="docs" t-as="doc">
+                <h1>Factura</h1>
+                <h2>Invoice <t t-esc="doc.name"/> </h2> 
+                <table class="main-table brr">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                    </tr>
+                    <tr>
+                        <td class="celda" style="text-align:left;"><t t-esc="doc.date"/></td>
+                        <td class="celda" style="text-align:left;"><t t-esc="doc.client"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <table class="invoice-table tbt">
+                                <tr>
+                                    <th class="celda">Cantidad</th>
+                                    <th class="celda">Producto</th>
+                                    <th class="celda">Precio</th>
+                                </tr>
+                                <t t-foreach="doc.lines" t-as="line">
+                                    <tr>
+                                        <td class="celda" align="right"><t t-esc="line.quantity"/></td>
+                                        <td class="celda"><t t-esc="line.product.name"/></td>
+                                        <td class="celda" align="right"><t t-esc="line.product.price"/>€</td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td class="celda" colspan="2" align="right">Base</td>
+                                    <td class="celda" align="right"><t t-esc="doc.pay"/>€</td>
+                                </tr>
+                                <tr>
+                                    <td class="celda" colspan="2" align="right">IVA</td>
+                                    <td class="celda" align="right"><t t-esc="doc.vat"/>%</td>
+                                </tr>
+                                <tr>
+                                    <td class="celda" colspan="2" align="right">Total</td>
+                                    <td class="celda" align="right"><t t-esc="doc.total"/>€</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </meta>
+        </t>
+    </t>
+        
+    </template>
+    
+    
+    
+    
+    
+    
+</odoo>
